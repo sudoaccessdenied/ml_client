@@ -2,9 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Run Development Server
+* Download and install nodejs.
+* Install dependencies using `npm install` Command in ml_client Directory
+* Run `ng serve` in the Command in ml_client Directory and Navigate to `http://localhost:4200/`  in browser.
 
 ## Code scaffolding
 

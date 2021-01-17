@@ -1,0 +1,95 @@
+
+
+<div class="container-fluid ">
+
+    <div class ="row   justify-content-between m-5 ">
+        <div class="card   col rounded shadow-lg mb-3 " style="max-width: 24rem;">
+            <div class="progress"  *ngIf="progressBar">
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+              </div>
+            <h3 class="card-title p-3">K nearest neighbors</h3>
+
+            
+            <div class="card-body">
+                
+                <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+                    <div >
+                        <label for="select" class="form-label">Select Dataset</label>
+                            <select  id ='select' class="form-control" formControlName="select" >
+                                <option  value="1">Breast Cancer (Binary)</option>
+                                <option  value="2">Cat vs No Cat (Binary)</option>
+                            </select>
+                            <small   class="text-danger"
+                            *ngIf="!this.form.controls['select'].valid && this.form.controls['select'].touched" 
+                             >
+                            Dataset is required
+                            </small>
+                            <br>
+                            <label for="split" class="form-label">Split</label>
+                            <input  id='split'  class="form-control" formControlName="split"
+                                type="text">
+                                <small   class="text-danger"
+                                *ngIf="!this.form.controls['split'].valid && this.form.controls['split'].touched" 
+                                 >
+                                Split is required
+                                </small>
+
+<!--                        
+                                 
+                            <label for="dis_type" class="form-label">Distance Type</label>
+                            <select  id ='dist_type' class="form-control" >
+                                    <option  value="eul">Euclidean Distance</option>
+                                    <option  value="man">Manhattan Distance</option>
+                            </select> -->
+                            
+                            <br>
+                            <label for="k" class="form-label" > K</label>
+                            <input  id='k'  class="form-control" formControlName="k"
+                                type="text">
+                                <small   class="text-danger"
+                                *ngIf="!this.form.controls['k'].valid && this.form.controls['k'].touched" 
+                                 >
+                                K is required
+                                </small>
+                            
+                            <!-- <small   class="text-danger"
+                            *ngIf="!this.form.controls['select'].valid && this.form.controls[item.caption].touched" 
+                             >
+                            Dataset is required
+                            </small> -->
+
+                    </div>
+                    <button class="btn btn-grad" type="submit" [disabled]="!form.valid" >Train</button>
+                </form>
+          </div>          
+
+    </div>
+    <div class=" card col rounded shadow-lg mb-3 " style="max-width: 24rem;" *ngIf="!progressBar && this.result">
+        
+        
+        <!-- <div class="card   " style="max-width: 24rem;"> -->
+            <!-- <div class="card-header">Select Algorithm Type</div> -->
+            <h3 class="card-title p-3">Output</h3>
+            <div class="card-body">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Test Data Metrics </h5>
+                    <h5 class="mb-1">Value</h5>
+                  </div>
+                <ul class="list-group" >
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Accuracy
+                        <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.accuracy |number : '1.2-2'}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Specificity
+                      <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.specificity |number : '1.2-2'}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Senstivity
+                        <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.senstivity |number : '1.2-2'}}</span>
+                    </li>
+                  </ul>
+
+            </div>
+    
+    </div>

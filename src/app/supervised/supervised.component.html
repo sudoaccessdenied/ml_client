@@ -1,0 +1,27 @@
+
+
+
+  <div class="container-fluid">
+    <div class ="row h-100 justify-content-center   ">
+        <div class="col  col-md-3 sidebar py-5 align-self-center">
+            <div class="dropdown">
+                <button class="btn btn-grad shadow-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select Algorithm
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" [routerLink]="['/supervised/knn']" routerLinkActive="router-link-active"   >KNN</a>
+                  <a class="dropdown-item" [routerLink]="['/supervised/linear']" routerLinkActive="router-link-active"   >Linear Regression</a>
+                  <a class="dropdown-item" [routerLink]="['/supervised/logistic']" routerLinkActive="router-link-active"   >Logistic Regression</a>
+                  <a class="dropdown-item" [routerLink]="['/supervised/neural']" routerLinkActive="router-link-active"   >Neural Network</a>
+                  
+                </div>
+              </div>
+
+        </div>
+        <div class="col col-md-9">
+
+            <router-outlet></router-outlet>
+
+        </div>
+    </div>
+  </div>

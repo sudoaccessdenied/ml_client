@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+    linReg :"http://localhost:5000/linear_reg_api",
+    logistic :"http://localhost:5000/logistic_reg_api",
+    neural : "http://localhost:5000/neural_network_api",
+    knn :"http://localhost:5000/knn_api",
+    kmeans : "http://localhost:5000/kmeans_api",
+    // inputImg:"http://localhost:5000/static/kmeans_input.png",
+    outputImg:'http://localhost:5000'
+   
 };
 
 /*

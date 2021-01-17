@@ -1,0 +1,158 @@
+
+
+<div class="container-fluid ">
+
+    <div class ="row   justify-content-between m-5 ">
+        <div class="card   col rounded shadow-lg mb-3 " style="max-width: 24rem;">
+            <div class="progress"  *ngIf="progressBar">
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+              </div>
+            <h3 class="card-title p-3">Multi-Layer Perceptron</h3>
+
+            
+            <div class="card-body">
+                
+                <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+                    <div >
+                        <label for="select" class="form-label">Select Dataset</label>
+                            <select  id ='select' class="form-control" formControlName="select" >
+                                <option  value="1">Breast Cancer (Binary)</option>
+                                <option  value="2">Cat vs No Cat (Binary)</option>
+                            </select>
+                            <small   class="text-danger"
+                            *ngIf="!this.form.controls['select'].valid && this.form.controls['select'].touched" 
+                             >
+                            Dataset is required
+                            </small>
+                            <br>
+                            <label for="split" class="form-label">Split</label>
+                            <input  id='split'  class="form-control" formControlName="split"
+                                type="text">
+                                <small   class="text-danger"
+                                *ngIf="!this.form.controls['split'].valid && this.form.controls['split'].touched" 
+                                 >
+                                Split is required
+                                </small>
+                            
+                        
+                          
+                          <fieldset class="m-2 border p-2"> 
+                            <legend class="form-label">Hidden Layer</legend>
+                            <label for="hidden_layer" class="form-label">Hidden Units</label>
+              
+                            <input  id='hidden_layer'  class="form-control" formControlName="hidden_layer" placeholder="No. of Units" type="number" min="1">
+                            <button class="btn btn-primary m-2" type ="button"  (click)="addHiddenLayer()" >Add</button>
+                            <button class="btn btn-primary m-2" type ="button"  (click)="removeLayer()" >Remove Last layer</button>    
+                            <p>Hidden Layers with units</p>
+                            <div class="d-inline-flex "> 
+                              <span class="badge p-2 m-2 rounded-pill bg-dark text-white" *ngFor="let item of hiddenLayer; index as i" >{{item}}</span>
+                            </div>
+                            <small   class="text-danger"
+                            *ngIf="!this.form.controls['hidden_layer'].valid && this.form.controls['hidden_layer'].touched" 
+                              >
+                            Hidden Layer is required
+                            </small>
+
+                          </fieldset>
+<!--                        
+                                 
+                            <label for="dis_type" class="form-label">Distance Type</label>
+                            <select  id ='dist_type' class="form-control" >
+                                    <option  value="eul">Euclidean Distance</option>
+                                    <option  value="man">Manhattan Distance</option>
+                            </select> -->
+                            
+                            <br>
+                            <label for="learning_rate" class="form-label" > Learning Rate</label>
+                            <input  id='learning_rate'  class="form-control" formControlName="learning_rate"
+                                type="text">
+                                <small   class="text-danger"
+                                *ngIf="!this.form.controls['learning_rate'].valid && this.form.controls['learning_rate'].touched" 
+                                 >
+                                Learning Rate is Required
+                                </small>
+
+                            <br>
+                            <label for="num_iterations" class="form-label" > Number of Iteration</label>
+                            <input  id='num_iterations'  class="form-control" formControlName="num_iterations"
+                                type="text">
+                                <small   class="text-danger"
+                                *ngIf="!this.form.controls['num_iterations'].valid && this.form.controls['num_iterations'].touched" 
+                                    >
+                                Number of Iteration is Required
+                                </small>  
+                        
+                            <!-- <small   class="text-danger"
+                            *ngIf="!this.form.controls['select'].valid && this.form.controls[item.caption].touched" 
+                             >
+                            Dataset is required
+                            </small> -->
+
+                    </div>
+                    <button class="btn btn-grad" type="submit" [disabled]="!form.valid" >Train</button>
+                </form>
+          </div>          
+
+    </div>
+    <div class=" card col rounded shadow-lg mb-3 " style="max-width: 24rem;" *ngIf="!progressBar && this.result">
+        
+        
+        <!-- <div class="card   " style="max-width: 24rem;"> -->
+            <!-- <div class="card-header">Select Algorithm Type</div> -->
+            <h3 class="card-title p-3">Output</h3>
+            <div class="card-body" >
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Test Data Metrics </h5>
+                    <h5 class="mb-1">Value</h5>
+                  </div>
+                <ul class="list-group" >
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Accuracy
+                        <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.accuracy |number : '1.2-2'}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Specificity
+                      <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.specificity |number : '1.2-2'}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Senstivity
+                        <span class="badge text-white bg-primary rounded-pill">{{result.test_accuracy.senstivity |number : '1.2-2'}}</span>
+                    </li>
+                  </ul>
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Training Data Metrics </h5>
+                    <h5 class="mb-1">Value</h5>
+                  </div>
+                <ul class="list-group" >
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Accuracy
+                        <span class="badge text-white bg-primary rounded-pill">{{result.train_accuracy.accuracy |number : '1.2-2'}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Specificity
+                      <span class="badge text-white bg-primary rounded-pill">{{result.train_accuracy.specificity |number : '1.2-2'}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Senstivity
+                        <span class="badge text-white bg-primary rounded-pill">{{result.train_accuracy.senstivity |number : '1.2-2'}}</span>
+                    </li>
+                  </ul>
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Parameters </h5>
+                    <h5 class="mb-1">Value</h5>
+                  </div>
+                <ul class="list-group" >
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Learning Rate
+                        <span class="badge text-white bg-primary rounded-pill">{{result.learning_rate |number : '1.2-2'}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Number of Iteration
+                      <span class="badge text-white bg-primary rounded-pill">{{result.num_iterations |number : '1.2-2'}}</span>
+                    </li>
+                    
+                  </ul>
+                   
+            </div>
+    
+    </div>
